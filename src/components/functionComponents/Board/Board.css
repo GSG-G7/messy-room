@@ -1,0 +1,11 @@
+.board{
+  width: 80%;
+  height: 80vh;
+  margin: 25vh auto;
+  border: 2px solid red;
+  background: URL('https://vignette.wikia.nocookie.net/hidden-city-mystery-of-shadows/images/a/ad/CollectorsHs_Clear_Base.png/revision/latest?cb=20190625064749');
+  background-size: 100% 100%;
+  position: relative;
+}
+
+/* background: URL('https://cdnb.artstation.com/p/assets/images/images/005/260/791/large/marko-zdravkovic-housecleaning-level-05.jpg?1489700458'); */
