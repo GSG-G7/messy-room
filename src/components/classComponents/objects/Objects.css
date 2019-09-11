@@ -1,0 +1,24 @@
+.obj-prop {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  opacity: 0.8;
+}
+.one {
+  bottom: 20%;
+  left: 18%;
+}
+
+.two {
+  bottom: 35%;
+  left: 35%;
+}
+.three {
+  bottom: 65%;
+  left: 65%;
+}
+
+.four {
+  bottom: 85%;
+  left: 85%;
+}
