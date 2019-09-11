@@ -20,7 +20,7 @@ class ObjectBoard extends Component {
   render() {
     return (
 
-      <img id="one" src={require("./objects/1.png")} alt="" className="one" onClick={this.clicked} />
+      <img id="one" src={require("../../../objects/1.png")} alt="" className="one" onClick={this.clicked} />
 
 
 
