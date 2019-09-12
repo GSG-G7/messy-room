@@ -3,7 +3,10 @@ import icon1 from "./objects_icon/icon1.png";
 import icon2 from "./objects_icon/2.png";
 import icon3 from "./objects_icon/3.png";
 import icon4 from "./objects_icon/4.png";
-import Level1 from './components/classComponents/level1/level1'
+import Level1 from './components/classComponents/level1/level1';
+import Header from './components/classComponents/header/Header';
+import Footer from './components/classComponents/footer/Footer';
+import End from './components/functionComponents/end/end'
 
 import "./App.css";
 import { classDeclaration } from "@babel/types";
@@ -61,13 +64,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <main className="main">
-          <Board objArray={objArray} onClick={this.functions} />
-          <Sidebar objArray={objArray} id={this.state.foundId} score={this.state.score} />
-        </main> */}
-
-
+        <Header level={this.state.level} />
         <Level1 sideArray={objArray} boardArray={this.state.objects} onClick={this.functions} foundId={this.state.foundId} score={this.state.score} />
+        <Footer />
       </div>
     );
   }
