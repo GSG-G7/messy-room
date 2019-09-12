@@ -1,0 +1,9 @@
+.board {
+  width: 80vw;
+  height: 80vh;
+  border: 2px solid red;
+  margin: auto;
+  background-size: 100% 100%;
+  position: relative;
+  overflow: hidden;
+}

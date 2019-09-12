@@ -1,73 +1,80 @@
 import React, { Component } from "react";
-import icon1 from "./objects_icon/icon1.png";
-import icon2 from "./objects_icon/2.png";
-import icon3 from "./objects_icon/3.png";
-import icon4 from "./objects_icon/4.png";
-import Level1 from './components/classComponents/level1/level1'
-
+import Level from "./components/funComponents/level/level";
+import { boardLevels } from "./Data";
 import "./App.css";
-import { classDeclaration } from "@babel/types";
-const objArray = [
-  { id: 1, icon: icon1, class: "obj-prop one" },
-  { id: 2, icon: icon2, class: "obj-prop two" },
-  { id: 3, icon: icon3, class: "obj-prop three" },
-  { id: 4, icon: icon4, class: "obj-prop four" }
-];
 
 class App extends Component {
   state = {
     foundId: [],
     score: 0,
     level: 1,
-    objects: [...objArray]
+    objects: [...boardLevels[0].objects].map(e => e),
+    sideObjects: [...boardLevels[0].objects].map(e => e),
+    boardUrl: boardLevels[0].backgroundUrl
   };
 
-  clicked = (e) => {
-    let arr = [...this.state.foundId];
-    arr.push(Number(e.id));
-    this.setState({ foundId: arr })
-
+  handleDeleteObject = id => {
     this.state.objects.forEach((element, index) => {
-      if (element.id === Number(e.id))
-        this.state.objects.splice(index, 1);
-    })
+      if (element.id === Number(id)) this.state.objects.splice(index, 1);
+    });
+  };
+  handleFoundObject = id => {
+    let arr = [...this.state.foundId];
+    arr.push(Number(id));
+    this.setState({ foundId: arr });
   };
 
-
-  score = (id) => {
+  score = id => {
     const preScore = this.state.score;
-    if (id === 'board') {
-      if (this.state.score !== 0)
-        this.setState({ score: preScore - 10 })
+    if (id === "board") {
+      if (this.state.score !== 0) this.setState({ score: preScore - 10 });
     } else {
       this.setState({ score: preScore + 100 });
     }
-  }
+  };
 
+  handleBoardLevel = () => {
+    const preLevel = this.state.level;
+    this.setState({ level: preLevel + 1 }, () => {
+      boardLevels.forEach((element, index) => {
+        if (element.level === this.state.level) {
+          this.setState({
+            foundId: [],
+            boardUrl: element.backgroundUrl,
+            objects: [...boardLevels[index].objects].map(e => e),
+            sideObjects: [...boardLevels[index].objects].map(e => e)
+          });
+        }
+      });
+    });
+  };
 
-  functions = ({ target }) => {
-    if (target.id === 'board') {
-      this.score(target.id);
+  functions = ({ target: { id } }) => {
+    //handle the click
+    if (id === "board") {
+      this.score(id);
     } else {
-      this.clicked(target);
-      this.score(target.id);
+      this.handleFoundObject(id);
+      this.handleDeleteObject(id);
+      this.score(id);
     }
-  }
-
-
-
-
+    //move to the next level
+    if (this.state.objects.length === 0) {
+      this.handleBoardLevel();
+    }
+  };
 
   render() {
     return (
       <div className="App">
-        {/* <main className="main">
-          <Board objArray={objArray} onClick={this.functions} />
-          <Sidebar objArray={objArray} id={this.state.foundId} score={this.state.score} />
-        </main> */}
-
-
-        <Level1 sideArray={objArray} boardArray={this.state.objects} onClick={this.functions} foundId={this.state.foundId} score={this.state.score} />
+        <Level
+          boardUrl={this.state.boardUrl}
+          sideArray={this.state.sideObjects}
+          boardArray={this.state.objects}
+          onClick={this.functions}
+          foundId={this.state.foundId}
+          score={this.state.score}
+        />
       </div>
     );
   }
