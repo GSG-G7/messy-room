@@ -1,10 +1,11 @@
 import React from "react";
 import Board from "../board/Board";
-import Sidebar from "../../classComponents/sidebar/sidebar";
+import Sidebar from "../../funComponents/sidebar/sidebar";
+import "./level.css";
 
 const Level = props => {
   return (
-    <div>
+    <div className="level">
       <Board
         boardArray={props.boardArray}
         onClick={props.onClick}

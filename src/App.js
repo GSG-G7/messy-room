@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Level from "./components/funComponents/level/level";
 import { boardLevels } from "./Data";
+import Header from "./components/funComponents/header/Header";
+import Footer from "./components/funComponents/footer/Footer";
+import End from "./components/funComponents/end/end";
 import "./App.css";
 
 class App extends Component {
@@ -10,7 +13,8 @@ class App extends Component {
     level: 1,
     objects: [...boardLevels[0].objects].map(e => e),
     sideObjects: [...boardLevels[0].objects].map(e => e),
-    boardUrl: boardLevels[0].backgroundUrl
+    boardUrl: boardLevels[0].backgroundUrl,
+    End: false
   };
 
   handleDeleteObject = id => {
@@ -36,6 +40,7 @@ class App extends Component {
   handleBoardLevel = () => {
     const preLevel = this.state.level;
     this.setState({ level: preLevel + 1 }, () => {
+      if (this.state.level === 3) this.setState({ End: true });
       boardLevels.forEach((element, index) => {
         if (element.level === this.state.level) {
           this.setState({
@@ -65,8 +70,11 @@ class App extends Component {
   };
 
   render() {
-    return (
+    return this.state.End ? (
+      <End />
+    ) : (
       <div className="App">
+        <Header level={this.state.level} />
         <Level
           boardUrl={this.state.boardUrl}
           sideArray={this.state.sideObjects}
@@ -75,6 +83,7 @@ class App extends Component {
           foundId={this.state.foundId}
           score={this.state.score}
         />
+        <Footer />
       </div>
     );
   }

@@ -16,8 +16,9 @@ const Sidebar = props => {
 
   return (
     <aside className="side">
-      <p className="side-score">Score : {props.score}</p>
-      <p className="side-time">Time</p>
+      <p className="side-score">
+        Score : <span>{props.score}</span>
+      </p>
       <ul className="side-list">{generateObject()}</ul>
     </aside>
   );

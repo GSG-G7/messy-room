@@ -1,0 +1,9 @@
+.footer{
+  height: 8vh;
+  background-color: #2d3436;
+  text-align: center;
+  line-height: 10vh;
+  font-size: 30px;
+  color: #ecf0f1;
+  font-style: italic;
+}
