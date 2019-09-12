@@ -9,8 +9,7 @@ class Sidebar extends Component {
   render() {
     return (
       <aside className="side">
-        <p className="side-score">Score : {this.props.score}</p>
-        <p className="side-time">Time</p>
+        <p className="side-score">Score : <span>{this.props.score} </span></p>
         <ul className="side-list">
           {this.props.sideArray.map(obj => (
             <li className="side-items">
