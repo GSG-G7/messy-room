@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Board from "./components/classComponents/board/Board";
-import Sidebar from "./components/classComponents/sidebar/sidebar";
 import icon1 from "./objects_icon/icon1.png";
 import icon2 from "./objects_icon/2.png";
 import icon3 from "./objects_icon/3.png";
 import icon4 from "./objects_icon/4.png";
-// import ico from "./objects_icon/icon1.png";
+import Level1 from './components/classComponents/level1/level1'
+
 import "./App.css";
+import { classDeclaration } from "@babel/types";
 const objArray = [
   { id: 1, icon: icon1, class: "obj-prop one" },
   { id: 2, icon: icon2, class: "obj-prop two" },
@@ -16,28 +16,58 @@ const objArray = [
 
 class App extends Component {
   state = {
-    foundId: []
+    foundId: [],
+    score: 0,
+    level: 1,
+    objects: [...objArray]
   };
-  clicked = ({ target: { id } }) => {
-    console.log(typeof id);
-    const element = document.getElementById(id);
-    element.parentNode.removeChild(element);
-    // console.log(this.state.foundId);
-    let arr = this.state.foundId;
-    arr.push(Number(id));
 
-    // console.log(this.state.foundId);
+  clicked = (e) => {
+    let arr = [...this.state.foundId];
+    arr.push(Number(e.id));
+    this.setState({ foundId: arr })
 
-    this.setState({ foundId: arr }, console.log(arr));
+    this.state.objects.forEach((element, index) => {
+      if (element.id === Number(e.id))
+        this.state.objects.splice(index, 1);
+    })
   };
+
+
+  score = (id) => {
+    const preScore = this.state.score;
+    if (id === 'board') {
+      if (this.state.score !== 0)
+        this.setState({ score: preScore - 10 })
+    } else {
+      this.setState({ score: preScore + 100 });
+    }
+  }
+
+
+  functions = ({ target }) => {
+    if (target.id === 'board') {
+      this.score(target.id);
+    } else {
+      this.clicked(target);
+      this.score(target.id);
+    }
+  }
+
+
+
+
+
   render() {
     return (
       <div className="App">
-        <main className="main">
-          <Board objArray={objArray} onClick={this.clicked} />
-          <Sidebar objArray={objArray} id={this.state.foundId} />
-        </main>
-        {/* <img src={ico} /> */}
+        {/* <main className="main">
+          <Board objArray={objArray} onClick={this.functions} />
+          <Sidebar objArray={objArray} id={this.state.foundId} score={this.state.score} />
+        </main> */}
+
+
+        <Level1 sideArray={objArray} boardArray={this.state.objects} onClick={this.functions} foundId={this.state.foundId} score={this.state.score} />
       </div>
     );
   }

@@ -10,16 +10,17 @@
 .side-list {
   border: 2px solid yellow;
   display: flex;
-  flex-direction: column;
   height: 80%;
 }
 
 .side-items {
   list-style: none;
-  width: 100%;
+  width: 200px;
   margin: 10px 0;
   justify-content: space-between;
   height: 24%;
+  height: 50px;
+  overflow: hidden;
 }
 .overlay {
   filter: grayscale(100%);

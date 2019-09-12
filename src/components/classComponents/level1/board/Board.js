@@ -7,11 +7,10 @@ class Board extends Component {
   state = {};
 
   render() {
-    console.log(this.props.objArray);
 
     return (
-      <div className="board">
-        {this.props.objArray.map(obj => (
+      <div className="board" id="board" onClick={this.props.onClick}>
+        {this.props.boardArray.map(obj => (
           <Objects
             key={obj.id}
             icon={obj.icon}
